@@ -1,0 +1,172 @@
+<p>studentcrud works!</p>
+<section>
+  <nav>
+    <nav class="navbar navbar-expand-lg bg-primary-subtle">
+      <div style="margin-left: auto; margin-right: auto">
+        <a class="navbar-brand" href="#">STUDENT INFO FORM</a>
+      </div>
+    </nav>
+  </nav>
+</section>
+<section class="m-5">
+  <div class="container border border-primary rounded" style="width: 70%">
+    <form class="p-3 m-3" id="studentForm">
+      <div class="row">
+        <div class="row">
+          <div class="mb-3 col-4">
+            <label for="firstname" class="form-label">First Name</label>
+            <input
+              type="text"
+              [(ngModel)]="studentFirstName"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="First Name"
+              id="firstname"
+              class="form-control border-primary-subtle"
+            />
+          </div>
+          <div class="mb-3 col-4">
+            <label for="middlename" class="form-label">Middle Name</label>
+            <input
+              type="text"
+              placeholder="Middle Name"
+              [(ngModel)]="studentMiddleName"
+              [ngModelOptions]="{ standalone: true }"
+              id="middlename"
+              class="form-control border-primary-subtle"
+            />
+          </div>
+          <div class="mb-3 col-4">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input
+              type="text"
+              placeholder="Last Name"
+              [(ngModel)]="studentLastName"
+              [ngModelOptions]="{ standalone: true }"
+              id="lastname"
+              class="form-control border-primary-subtle"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-3 col-3">
+          <label for="dateofbirth" class="form-label">Date of Birth</label>
+          <input
+            type="date"
+            [(ngModel)]="studentDob"
+            [ngModelOptions]="{ standalone: true }"
+            class="form-control border-primary-subtle"
+            id="dob"
+          />
+        </div>
+        <div class="col-4 border-primary-subtle">
+          <label for="basic-url" class="form-label">Contact number</label>
+          <div class="input-group mb-3 border-primary-subtle">
+            <input
+              type="text"
+              class="form-control border-primary-subtle"
+              id="mobile"
+              [(ngModel)]="studentMobno"
+              [ngModelOptions]="{ standalone: true }"
+              placeholder="Mobile Number"
+            />
+          </div>
+        </div>
+        <div class="mb-3 col-5">
+          <label for="exampleInputEmail1" class="form-label"
+            >Email address</label
+          >
+          <input
+            type="email"
+            class="form-control border-primary-subtle"
+            id="email"
+            [(ngModel)]="studentEmail"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Email Address"
+            aria-describedby="emailHelp"
+          />
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="row">
+            <button
+              (click)="save()"
+              type="button"
+              id="submitbtn"
+              class="btn btn-primary d-block ms-auto me-auto col-2"
+            >
+              Submit
+            </button>
+
+            <button
+              type="button"
+              id="resetFormbtn"
+              (click)="clearForm()"
+              class="btn btn-outline-danger d-block ms-auto me-auto col-2"
+            >
+              Clear Form
+            </button>
+
+            <button
+              type="button"
+              id="cleatTablebtn"x
+              (click)="deleteAllData()"
+              class="btn btn-danger d-block ms-auto me-auto col-2"
+            >
+              Clear Database
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<section>
+  <div class="container">
+    <table class="table" id="infotable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Last Name</th>
+          <th>Date of Birth</th>
+          <th>Contact Number</th>
+          <th>Email Address</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+        <tr *ngFor="let StudentItem of StudentArray">
+          <td>{{ StudentItem.studentId }}</td>
+          <td>{{ StudentItem.studentFirstName }}</td>
+          <td>{{ StudentItem.studentMiddleName }}</td>
+          <td>{{ StudentItem.studentLastName }}</td>
+          <td>{{ StudentItem.studentDob }}</td>
+          <td>{{ StudentItem.studentMobno }}</td>
+          <td>{{ StudentItem.studentEmail }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              (click)="setUpdate(StudentItem)"
+            >
+              Update
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="setDelete(StudentItem)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
