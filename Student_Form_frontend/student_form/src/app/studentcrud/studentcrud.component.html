@@ -1,55 +1,71 @@
-<p>studentcrud works!</p>
+<!-- HEADING SECTION -->
 <section>
-  <nav>
-    <nav class="navbar navbar-expand-lg bg-primary-subtle">
-      <div style="margin-left: auto; margin-right: auto">
-        <a class="navbar-brand" href="#">STUDENT INFO FORM</a>
-      </div>
-    </nav>
+  <nav class="navbar navbar-expand-lg bg-primary-subtle">
+    <div style="margin-left: auto; margin-right: auto">
+      <a class="navbar-brand" style="font-size: 1.5rem" href="#"
+        >STUDENT INFO FORM</a
+      >
+    </div>
   </nav>
 </section>
+<!-- FORM SECTION -->
 <section class="m-5">
-  <div class="container border border-primary rounded" style="width: 70%">
-    <form class="p-3 m-3" id="studentForm">
-      <div class="row">
-        <div class="row">
-          <div class="mb-3 col-4">
-            <label for="firstname" class="form-label">First Name</label>
-            <input
-              type="text"
-              [(ngModel)]="studentFirstName"
-              [ngModelOptions]="{ standalone: true }"
-              placeholder="First Name"
-              id="firstname"
-              class="form-control border-primary-subtle"
-            />
-          </div>
-          <div class="mb-3 col-4">
-            <label for="middlename" class="form-label">Middle Name</label>
-            <input
-              type="text"
-              placeholder="Middle Name"
-              [(ngModel)]="studentMiddleName"
-              [ngModelOptions]="{ standalone: true }"
-              id="middlename"
-              class="form-control border-primary-subtle"
-            />
-          </div>
-          <div class="mb-3 col-4">
-            <label for="lastname" class="form-label">Last Name</label>
-            <input
-              type="text"
-              placeholder="Last Name"
-              [(ngModel)]="studentLastName"
-              [ngModelOptions]="{ standalone: true }"
-              id="lastname"
-              class="form-control border-primary-subtle"
-            />
-          </div>
-        </div>
+  <div class="container border border-primary rounded" style="width: 80%">
+    <form
+      class="p-3 m-3"
+      id="studentForm"
+      #studentForm="ngForm"
+    >
+      <!-- PERSONAL DETAILS SECTION -->
+      <div>
+        <h6>PERSONAL DETAILS</h6>
+        <hr class="border border-primary" />
       </div>
+      <!-- FIRST PARENT DIV OF PERSONAL DETAILS CONTAINING FIRST, MIDDLE AND LAST NAME -->
       <div class="row">
-        <div class="mb-3 col-3">
+        <!-- FIRST NAME INPUT -->
+        <div class="mb-3 col-4">
+          <label for="firstname" class="form-label">First Name</label>
+          <input
+            type="text"
+            [(ngModel)]="studentFirstName"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Enter First Name"
+            id="firstname"
+            class="form-control border-primary-subtle"
+            required
+          />
+        </div>
+        <!-- MIDDLE NAME INPUT -->
+        <div class="mb-3 col-4">
+          <label for="middlename" class="form-label">Middle Name</label>
+          <input
+            type="text"
+            placeholder="Enter Middle Name"
+            [(ngModel)]="studentMiddleName"
+            [ngModelOptions]="{ standalone: true }"
+            id="middlename"
+            class="form-control border-primary-subtle"
+            required
+          />
+        </div>
+        <!-- LAST NAME INPUT -->
+        <div class="mb-3 col-4">
+          <label for="lastname" class="form-label">Last Name</label>
+          <input
+            type="text"
+            placeholder="Enter Last Name"
+            [(ngModel)]="studentLastName"
+            [ngModelOptions]="{ standalone: true }"
+            id="lastname"
+            class="form-control border-primary-subtle"
+          />
+           </div>
+      </div>
+      <!-- SECOND PARENT DIV OF PERSONAL DETAILS SECTION CONTAINING DATE OF BIRTH, GENDER, RELIGION AND PHYSICALLY DISABLED -->
+      <div class="row p-relative w-100">
+        <!-- DATE OF BIRTH INPUT -->
+        <div class="mb-3 col-3 me-5">
           <label for="dateofbirth" class="form-label">Date of Birth</label>
           <input
             type="date"
@@ -57,9 +73,192 @@
             [ngModelOptions]="{ standalone: true }"
             class="form-control border-primary-subtle"
             id="dob"
+            required
           />
         </div>
-        <div class="col-4 border-primary-subtle">
+        <!-- RADIO BUTTON FOR GENDER INPUT -->
+        <div class="mb-3 col-2 ms-1 me-4">
+          <label for="gender" class="form-label">Gender</label>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="genderSelection"
+              id="maleGender"
+              value="Male"
+              [(ngModel)]="studentGender"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label class="form-check-label" for="maleGender"> Male </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="genderSelection"
+              id="femaleGender"
+              value="Female"
+              [(ngModel)]="studentGender"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label class="form-check-label" for="femaleGender"> Female </label>
+          </div>
+        </div>
+        <!-- DROPDOWN MENU FOR RELIGION SELECTION -->
+        <div class="mb-3 col-2 me-4">
+          <label class="form-check-label" for="religionSelection">
+            Religion
+          </label>
+          <div class="dropdown mt-2">
+            <button
+              class="btn btn-outline-primary dropdown-toggle w-100 p-1"
+              id="religionSelection"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              [(ngModel)]="studentReligion"
+              ngDefaultControl
+              [ngModelOptions]="{ standalone: true }"
+            >
+              {{ selectedReligion }}
+            </button>
+            <!-- RADIO BUTTON SELECTION LIST FOR RELIGION SELECTION MENU -->
+            <ul class="dropdown-menu">
+              <div class="form-check ms-3">
+                <input
+                  routerLink="/selectRelgion"
+                  (click)="changeRoute('Select Religion')"
+                  class="form-check-input"
+                  type="radio"
+                  name="religionSelection"
+                  id="selectReligion"
+                  value="Select Religion"
+                />
+                <label class="form-check-label" for="sikhism">
+                  Select Religion
+                </label>
+              </div>
+              <div class="form-check ms-3">
+                <input
+                  class="form-check-input"
+                  routerLink="/hinduism"
+                  (click)="changeRoute('Hinduism')"
+                  type="radio"
+                  name="religionSelection"
+                  id="hinduism"
+                  value="Hinduism"
+                />
+                <label class="form-check-label" for="hinduism">
+                  Hinduism
+                </label>
+              </div>
+              <div class="form-check ms-3">
+                <input
+                  routerLink="/buddhism"
+                  (click)="changeRoute('Buddhism')"
+                  class="form-check-input"
+                  type="radio"
+                  name="religionSelection"
+                  id="buddhism"
+                  value="Buddhism"
+                />
+                <label class="form-check-label" for="buddhism">
+                  Buddhism
+                </label>
+              </div>
+              <div class="form-check ms-3">
+                <input
+                  routerLink="/sikhism"
+                  (click)="changeRoute('Sikhism')"
+                  class="form-check-input"
+                  type="radio"
+                  name="religionSelection"
+                  id="sikhism"
+                  value="Sikhism"
+                />
+                <label class="form-check-label" for="sikhism"> Sikhism </label>
+              </div>
+              <div class="form-check ms-3">
+                <input
+                  routerLink="/jainism"
+                  (click)="changeRoute('Jainism')"
+                  class="form-check-input"
+                  type="radio"
+                  name="religionSelection"
+                  id="jainism"
+                  value="Jainism"
+                />
+                <label class="form-check-label" for="jainism"> Jainism </label>
+              </div>
+              <div class="form-check ms-3">
+                <input
+                  routerLink="/islam"
+                  (click)="changeRoute('Islam')"
+                  class="form-check-input"
+                  type="radio"
+                  name="religionSelection"
+                  id="islam"
+                  value="Islam"
+                />
+                <label class="form-check-label" for="islam"> Islam </label>
+              </div>
+              <div class="form-check ms-3">
+                <input
+                  routerLink="/christianity"
+                  (click)="changeRoute('Christianity')"
+                  class="form-check-input"
+                  type="radio"
+                  name="religionSelection"
+                  id="christianity"
+                  value="Christianity"
+                />
+                <label class="form-check-label" for="christianity">
+                  Christianity
+                </label>
+              </div>
+              <div class="form-check ms-3">
+                <input
+                  routerLink="/other"
+                  (click)="changeRoute('other')"
+                  class="form-check-input"
+                  type="radio"
+                  name="religionSelection"
+                  id="other"
+                  value="Other"
+                />
+                <label class="form-check-label" for="christianity">
+                  Other
+                </label>
+              </div>
+            </ul>
+          </div>
+        </div>
+        <!-- BUTTON FOR IF PHYSICALLY DISABLED -->
+        <div class="m-3 pt-4 col-3">
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="physicallyDisabled"
+              [(ngModel)]="studentDisability"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label class="form-check-label ms-2" for="physicallyDisabled"
+              >Physically Disabled</label
+            >
+          </div>
+        </div>
+      </div>
+      <!-- CONTACT DETAILS SECTION -->
+      <div class="mt-1">
+        <h6>CONTACT DETAILS</h6>
+        <hr class="border border-primary" />
+      </div>
+      <!-- FIRST PARENT DIV OF CONTACT DETAILS CONTAINING CONTACT NUMBER, EMAIL ADDRESS and COUNTRY -->
+      <div class="row">
+        <!-- CONTACT NUMBER SECTION -->
+        <div class="col-3 border-primary-subtle">
           <label for="basic-url" class="form-label">Contact number</label>
           <div class="input-group mb-3 border-primary-subtle">
             <input
@@ -68,11 +267,12 @@
               id="mobile"
               [(ngModel)]="studentMobno"
               [ngModelOptions]="{ standalone: true }"
-              placeholder="Mobile Number"
+              placeholder="Enter Mobile Number"
             />
           </div>
         </div>
-        <div class="mb-3 col-5">
+        <!-- EMAIL ADDRESS SECTION -->
+        <div class="mb-3 col-3">
           <label for="exampleInputEmail1" class="form-label"
             >Email address</label
           >
@@ -82,14 +282,236 @@
             id="email"
             [(ngModel)]="studentEmail"
             [ngModelOptions]="{ standalone: true }"
-            placeholder="Email Address"
+            placeholder="Enter Email Address"
             aria-describedby="emailHelp"
           />
         </div>
+        <!-- COUNTRY DROPDOWN SELECTION -->
+        <div class="col-2 mb-3">
+          <label class="form-check-label" for="countrySelection">
+            Country
+          </label>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-primary dropdown-toggle mt-2 w-100"
+              type="button"
+              style="display: inline-block; overflow: hidden; cursor: pointer"
+              id="countryDropDownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              [(ngModel)]="studentCountry"
+              ngDefaultControl
+              [ngModelOptions]="{ standalone: true }"
+            >
+              {{ selectedCountry }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li
+                class="m-2 ps-2"
+                (click)="changeCountry('Select Country', '')"
+              >
+                Select Country
+              </li>
+              <li
+                class="m-2 ps-2"
+                *ngFor="let country of Countries"
+                [value]="country.isoCode"
+                routerLink="/{{ country.name }}"
+                (click)="changeCountry(country.name, country.isoCode)"
+                id="{{ country.name }}"
+                value="{{ country.name }}"
+              >
+                {{ country.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- STATE DROPDOWN SELECTION -->
+        <div class="col-2 mb-3">
+          <label class="form-check-label" for="stateSelection"> State </label>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-primary dropdown-toggle mt-2 w-100"
+              type="button"
+              style="display: inline-block; overflow: hidden; cursor: pointer"
+              id="stateDropDownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              [(ngModel)]="studentState"
+              ngDefaultControl
+              [ngModelOptions]="{ standalone: true }"
+            >
+              {{ selectedState }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="stateDropDownMenuButton">
+              <li class="m-2 ps-2" (click)="changeState('Select State', '')">
+                Select State
+              </li>
+              <li
+                class="m-2 ps-2"
+                *ngFor="let state of states"
+                [value]="state.isoCode"
+                routerLink="/{{ state.name }}"
+                (click)="changeState(state.name, state.isoCode)"
+                id="{{ state.name }}"
+                value="{{ state.name }}"
+              >
+                {{ state.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- CITY DROPDOWN SELECTION -->
+        <div class="col-2 mb-3">
+          <label class="form-check-label" for="citySelection"> City </label>
+          <div class="dropdown">
+            <button
+              class="btn btn-outline-primary dropdown-toggle mt-2 w-100"
+              type="button"
+              style="display: inline-block; overflow: hidden; cursor: pointer"
+              id="countryDropDownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              [(ngModel)]="studentCity"
+              ngDefaultControl
+              [ngModelOptions]="{ standalone: true }"
+            >
+              {{ selectedCity }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li class="m-2 ps-2" (click)="changeCity('Select Country')">
+                Select City
+              </li>
+              <li
+                class="m-2 ps-2"
+                *ngFor="let city of cities"
+                routerLink="/{{ city.name }}"
+                (click)="changeCity(city.name)"
+                id="country.name"
+                value="country.name"
+              >
+                {{ city.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <div class="container">
+      <!-- SECOND PARENT DIV OF CONTACT DETAILS SECTION CONTAINING PINCODE AND ADDRESS -->
+      <div class="row">
+        <!-- PINCODE INPUT -->
+        <div class="mb-3 col-4">
+          <label for="pincode" class="form-label">PinCode</label>
+          <input
+            type="text"
+            placeholder="Enter PinCode"
+            id="pinCode"
+            class="form-control border-primary-subtle"
+            [(ngModel)]="studentPinCode"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <!-- ADDRESS INPUT -->
+        <div class="mb-3 col-8">
+          <label for="address" class="form-label">Address</label>
+          <input
+            type="text"
+            placeholder="Enter Permanent Address"
+            id="address"
+            class="form-control border-primary-subtle"
+            [(ngModel)]="studentAddress"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <!-- EDUCATIONAL DETAILS SECTION -->
+      <div class="mt-2">
+        <h6>EDUCATIONAL DETAILS</h6>
+        <hr class="border border-primary" />
+      </div>
+      <!-- FIRST PARENT DIV OF EDUCATIONAL DETAILS CONTAINING COLLEGE NAME AND DEGREE -->
+      <div class="row">
+        <!-- COLLEGE NAME INPUT -->
+        <div class="mb-3 col-7">
+          <label for="collegeName" class="form-label">College Name</label>
+          <input
+            type="text"
+            placeholder="Enter College Name"
+            id="collegeName"
+            class="form-control border-primary-subtle"
+            [(ngModel)]="studentCollegeName"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <!-- DEGREE INPUT -->
+        <div class="mb-3 col-5">
+          <label for="degree" class="form-label">Degree</label>
+          <input
+            type="text"
+            placeholder="Enter Completed / Pursuing Degree"
+            id="degree"
+            class="form-control border-primary-subtle"
+            [(ngModel)]="studentDegree"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <!-- SECOND PARENT DIV OF EDUCATIONAL DETAILS CONTAINING SPECIALIZATION, MARKS AND BACKLOGS -->
+      <div class="row">
+        <!-- SPECIALIZATION INPUT -->
+        <div class="mb-3 col-5">
+          <label for="specialization" class="form-label">Specialization</label>
+          <input
+            type="text"
+            placeholder="Enter Degree Specialization"
+            id="specialization"
+            class="form-control border-primary-subtle"
+            [(ngModel)]="studentSpecialization"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <!-- MARKS INPUT -->
+        <div class="mb-3 col-3">
+          <label for="marks" class="form-label">Marks</label>
+          <input
+            type="text"
+            placeholder="Enter Marks"
+            id="marks"
+            class="form-control border-primary-subtle"
+            [(ngModel)]="studentMarks"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <!-- BACKLOGS INPUT -->
+        <div class="mb-3 col-3">
+          <label for="backlogs" class="form-label">Backlogs</label>
+          <input
+            type="number"
+            min="0"
+            max="5"
+            placeholder="Enter Backlogs"
+            id="backlogs"
+            class="form-control border-primary-subtle"
+            [(ngModel)]="studentActiveBacklogs"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <!-- <div class="form-check mb-3">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value="formSubmission"
+          id="toFormSubmit"
+        />
+        <label class="form-check-label" for="toFormSubmit" (click)="changeFormSubmission(model.formSubmission)">
+          I hereby confirm that all information provided is <b>correct.</b> {{model.formSubmission}}
+        </label>
+      </div> -->
+      <!-- CONTROLLER BUTTONS FOR FORM -->
+      <div class="container mt-1">
         <div class="row">
           <div class="row">
+            <!-- SAVE BUTTON -->
             <button
               (click)="save()"
               type="button"
@@ -98,7 +520,7 @@
             >
               Submit
             </button>
-
+            <!-- CLEAR FORM BUTTON -->
             <button
               type="button"
               id="resetFormbtn"
@@ -107,10 +529,10 @@
             >
               Clear Form
             </button>
-
+            <!-- CLEAR DATABASE BUTTON -->
             <button
               type="button"
-              id="cleatTablebtn"x
+              id="cleatTablebtn"
               (click)="deleteAllData()"
               class="btn btn-danger d-block ms-auto me-auto col-2"
             >
@@ -122,18 +544,41 @@
     </form>
   </div>
 </section>
-<section>
-  <div class="container">
+<!-- STUDENT INFO DATABASE TABLE SECTION -->
+<section class="vh-100">
+  <!-- HEADING SECTION -->
+  <nav class="navbar navbar-expand-lg bg-primary-subtle">
+    <div style="margin-left: auto; margin-right: auto">
+      <a class="navbar-brand" style="font-size: 1.5rem" href="#"
+        >STUDENT INFO DATABASE</a
+      >
+    </div>
+  </nav>
+  <!-- DATABASE INFORMATION TABLE SECTION -->
+  <div class="container table-responsive text-nowrap m-5">
     <table class="table" id="infotable">
       <thead>
-        <tr>
-          <th>#</th>
+        <tr class="table-fixed">
+          <th>ID</th>
           <th>First Name</th>
           <th>Middle Name</th>
           <th>Last Name</th>
           <th>Date of Birth</th>
+          <th>Gender</th>
+          <th>Religion</th>
+          <th>Disability</th>
           <th>Contact Number</th>
           <th>Email Address</th>
+          <th>Country</th>
+          <th>State</th>
+          <th>City</th>
+          <th>PinCode</th>
+          <th>Address</th>
+          <th>College Name</th>
+          <th>Degree</th>
+          <th>Specialization</th>
+          <th>Marks</th>
+          <th>Backlogs</th>
           <th>Update</th>
           <th>Delete</th>
         </tr>
@@ -145,8 +590,21 @@
           <td>{{ StudentItem.studentMiddleName }}</td>
           <td>{{ StudentItem.studentLastName }}</td>
           <td>{{ StudentItem.studentDob }}</td>
+          <td>{{ StudentItem.studentGender }}</td>
+          <td>{{ StudentItem.studentReligion }}</td>
+          <td>{{ StudentItem.studentDisability }}</td>
           <td>{{ StudentItem.studentMobno }}</td>
           <td>{{ StudentItem.studentEmail }}</td>
+          <td>{{ StudentItem.studentCountry }}</td>
+          <td>{{ StudentItem.studentState }}</td>
+          <td>{{ StudentItem.studentCity }}</td>
+          <td>{{ StudentItem.studentPincode }}</td>
+          <td>{{ StudentItem.studentAddress }}</td>
+          <td>{{ StudentItem.studentCollegeName }}</td>
+          <td>{{ StudentItem.studentDegree }}</td>
+          <td>{{ StudentItem.studentSpecialization }}</td>
+          <td>{{ StudentItem.studentMarks }}</td>
+          <td>{{ StudentItem.studentActiveBacklogs }}</td>
           <td>
             <button
               type="button"
@@ -170,3 +628,4 @@
     </table>
   </div>
 </section>
+<app-validations></app-validations>
