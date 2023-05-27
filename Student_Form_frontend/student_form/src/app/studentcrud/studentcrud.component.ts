@@ -2,29 +2,27 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Country, State, City } from 'country-state-city';
 
-// export class StudentForm{
-//   formSubmission: boolean = false;
-//   isInValid: boolean = false;
-//   studentFirstName: string = '';
-//   studentMiddleName: string = '';
-//   studentLastName: string = '';
-//   studentDob: string = '';
-//   studentGender: string = '';
-//   studentReligion: string = '';
-//   studentDisability: boolean = false;
-//   studentMobno: string = '';
-//   studentEmail: string = '';
-//   studentCountry: string = '';
-//   studentState: string = '';
-//   studentCity: string = '';
-//   studentPinCode: string = '';
-//   studentAddress: string = '';
-//   studentCollegeName: string = '';
-//   studentDegree: string = '';
-//   studentSpecialization: string = '';
-//   studentMarks: number = 0;
-//   studentActiveBacklogs: number = 0;
-// }
+export class StudentForm{
+  studentFirstName: string = '';
+  studentMiddleName: string = '';
+  studentLastName: string = '';
+  studentDob: string = '';
+  studentGender: string = '';
+  studentReligion: string = 'Select Religion';
+  studentDisability: boolean = false;
+  studentMobno: string = '';
+  studentEmail: string = '';
+  studentCountry: string = 'Select Country';
+  studentState: string = 'Select State';
+  studentCity: string = 'Select City';
+  studentPincode: string = '';
+  studentAddress: string = '';
+  studentCollegeName: string = '';
+  studentDegree: string = '';
+  studentSpecialization: string = '';
+  studentMarks!: number;
+  studentActiveBacklogs!: number;
+}
 
 @Component({
   selector: 'app-studentcrud',
@@ -32,41 +30,37 @@ import { Country, State, City } from 'country-state-city';
   styleUrls: ['./studentcrud.component.css'],
 })
 export class StudentcrudComponent {
-  // model = new StudentForm;
+
+  modelForm = new StudentForm;
 
   Countries = Country.getAllCountries();
 
-  selectedReligion = 'Select Religion';
   changeRoute(route: string) {
-    this.selectedReligion = route;
+    this.modelForm.studentReligion = route;
   }
 
-  selectedBacklog = 0;
   changeBacklog(num: number) {
-    this.selectedBacklog = num;
+    this.modelForm.studentActiveBacklogs = num;
   }
 
-  selectedCountry = 'Select Country';
   selectedCountryID = '';
   states: any = [];
   changeCountry(country: string, id: string) {
-    this.selectedCountry = country;
+    this.modelForm.studentCountry = country;
     this.selectedCountryID = id;
     this.states = State.getStatesOfCountry(this.selectedCountryID);
   }
   
-  selectedState = 'Select State';
   selectedStateID = '';
   cities: any = [];
   changeState(state: string, id: string) {
-    this.selectedState = state;
+    this.modelForm.studentState = state;
     this.selectedStateID = id;
     this.cities = City.getCitiesOfState(this.selectedCountryID, this.selectedStateID)
   }
 
-  selectedCity = 'Select City';
   changeCity(city: string) {
-    this.selectedCity = city;
+    this.modelForm.studentCity = city;
   }
 
   StudentArray: any[] = [];
@@ -74,36 +68,9 @@ export class StudentcrudComponent {
   isUpdateFormActive = false;
   currentStudentID: number = 0;
   studentId: number = 1;
-  studentFirstName: string = '';
-  studentMiddleName: string = '';
-  studentLastName: string = '';
-  studentDob: string = '';
-  studentGender: string = '';
-  studentReligion: string = '';
-  studentDisability: boolean = false;
-  studentMobno: string = '';
-  studentEmail: string = '';
-  studentCountry: string = '';
-  studentState: string = '';
-  studentCity: string = '';
-  studentPinCode: string = '';
-  studentAddress: string = '';
-  studentCollegeName: string = '';
-  studentDegree: string = '';
-  studentSpecialization: string = '';
-  studentMarks: number = 0;
-  studentActiveBacklogs: number = 0;
-
+  
   constructor(private http: HttpClient) {
     this.getAllStudent();
-  }
-
-  count = 0;
-  numberCounter(){
-    for (this.count = 0; this.count<=this.StudentArray.length;){
-      this.count++;
-      console.log(this.count);
-    }
   }
 
   ngOnInit(): void {}
@@ -120,27 +87,27 @@ export class StudentcrudComponent {
 
   register() {
     let bodyData = {
-      studentFirstName: this.studentFirstName,
-      studentMiddleName: this.studentMiddleName,
-      studentLastName: this.studentLastName,
-      studentDob: this.studentDob,
-      studentGender: this.studentGender,
-      studentReligion: this.selectedReligion == "Select Religion" ? "" : this.selectedReligion,
-      studentDisability: this.studentDisability,
-      studentMobno: this.studentMobno,
-      studentEmail: this.studentEmail,
-      studentCountry: this.selectedCountry == "Select Country" ? "" : this.selectedCountry,
-      studentState: this.selectedState == "Select State" ? "" : this.selectedState,
-      studentCity: this.selectedCity == "Select City" ? "" : this.selectedCity,
-      studentPinCode: this.studentPinCode,
-      studentAddress: this.studentAddress,
-      studentCollegeName: this.studentCollegeName,
-      studentDegree: this.studentDegree,
-      studentSpecialization: this.studentSpecialization,
-      studentMarks: this.studentMarks,
-      studentActiveBacklogs: this.studentActiveBacklogs,
+      studentFirstName: this.modelForm.studentFirstName,
+      studentMiddleName: this.modelForm.studentMiddleName,
+      studentLastName: this.modelForm.studentLastName,
+      studentDob: this.modelForm.studentDob,
+      studentGender: this.modelForm.studentGender,
+      studentReligion: this.modelForm.studentReligion == "Select Religion" ? "" : this.modelForm.studentReligion,
+      studentDisability: this.modelForm.studentDisability,
+      studentMobno: this.modelForm.studentMobno,
+      studentEmail: this.modelForm.studentEmail,
+      studentCountry: this.modelForm.studentCountry == "Select Country" ? "" : this.modelForm.studentCountry,
+      studentState: this.modelForm.studentState == "Select State" ? "" : this.modelForm.studentState,
+      studentCity: this.modelForm.studentCity == "Select City" ? "" : this.modelForm.studentCity,
+      studentPincode: this.modelForm.studentPincode,
+      studentAddress: this.modelForm.studentAddress,
+      studentCollegeName: this.modelForm.studentCollegeName,
+      studentDegree: this.modelForm.studentDegree,
+      studentSpecialization: this.modelForm.studentSpecialization,
+      studentMarks: this.modelForm.studentMarks,
+      studentActiveBacklogs: this.modelForm.studentActiveBacklogs,
     };
-    console.log(this.studentReligion);
+    
     this.http
       .post('https://localhost:7083/api/StudentInfoTables', bodyData)
       .subscribe((resultData: any) => {
@@ -154,72 +121,72 @@ export class StudentcrudComponent {
   setUpdate(data: any) {
     this.currentStudentID = data.studentId;
     this.studentId = data.studentId;
-    this.studentFirstName = data.studentFirstName;
-    this.studentMiddleName = data.studentMiddleName;
-    this.studentLastName = data.studentLastName;
-    this.studentDob = data.studentDob;
-    this.studentGender = data.studentGender;
-    this.studentReligion = data.studentReligion;
-    this.studentDisability = data.studentDisability;
-    this.studentMobno = data.studentMobno;
-    this.studentEmail = data.studentEmail;
-    this.studentCountry = data.studentCountry;
-    this.studentState = data.studentState;
-    this.studentCity = data.studentCity;
-    this.studentPinCode = data.studentPinCode;
-    this.studentAddress = data.studentAddress;
-    this.studentCollegeName = data.studentCollegeName;
-    this.studentDegree = data.studentDegree;
-    this.studentSpecialization = data.studentSpecialization;
-    this.studentMarks = data.studentMarks;
-    this.studentActiveBacklogs = data.studentActiveBacklogs;
-    console.log(this.studentCountry);
+    this.modelForm.studentFirstName = data.studentFirstName;
+    this.modelForm.studentMiddleName = data.studentMiddleName;
+    this.modelForm.studentLastName = data.studentLastName;
+    this.modelForm.studentDob = data.studentDob;
+    this.modelForm.studentGender = data.studentGender;
+    this.modelForm.studentReligion = data.studentReligion == "" ? "Select Religion": data.studentReligion;
+    this.modelForm.studentDisability = data.studentDisability;
+    this.modelForm.studentMobno = data.studentMobno;
+    this.modelForm.studentEmail = data.studentEmail;
+    this.modelForm.studentCountry = data.studentCountry == "" ? "Select Country": data.studentCountry;
+    this.modelForm.studentState = data.studentState == "" ? "Select State": data.studentState;
+    this.modelForm.studentCity = data.studentCity == "" ? "Select City": data.studentCity;
+    this.modelForm.studentPincode = data.studentPincode;
+    this.modelForm.studentAddress = data.studentAddress;
+    this.modelForm.studentCollegeName = data.studentCollegeName;
+    this.modelForm.studentDegree = data.studentDegree;
+    this.modelForm.studentSpecialization = data.studentSpecialization;
+    this.modelForm.studentMarks = data.studentMarks;
+    this.modelForm.studentActiveBacklogs = data.studentActiveBacklogs;
+    console.log(data);
   }
 
   clearForm() {
-    this.studentFirstName = '';
-    this.studentMiddleName = '';
-    this.studentLastName = '';
-    this.studentDob = '';
-    this.studentGender = '';
-    this.selectedReligion = 'Select Religion';
-    this.studentDisability = false;
-    this.studentMobno = '';
-    this.studentEmail = '';
-    this.selectedCountry = 'Select Country';
-    this.selectedState = 'Select State';
-    this.selectedCity = 'Select City';
-    this.studentPinCode = '';
-    this.studentAddress = '';
-    this.studentCollegeName = '';
-    this.studentDegree = '';
-    this.studentSpecialization = '';
-    this.studentMarks = 0;
-    this.studentActiveBacklogs = 0;
+    this.modelForm.studentFirstName = '';
+    this.modelForm.studentMiddleName = '';
+    this.modelForm.studentLastName = '';
+    this.modelForm.studentDob = '';
+    this.modelForm.studentGender = '';
+    this.modelForm.studentCountry = 'Select Religion';
+    this.modelForm.studentDisability = false;
+    this.modelForm.studentMobno = '';
+    this.modelForm.studentEmail = '';
+    this.modelForm.studentCountry = 'Select Country';
+    this.modelForm.studentState = 'Select State';
+    this.modelForm.studentCity = 'Select City';
+    this.modelForm.studentPincode = '';
+    this.modelForm.studentAddress = '';
+    this.modelForm.studentCollegeName = '';
+    this.modelForm.studentDegree = '';
+    this.modelForm.studentSpecialization = '';
+    this.modelForm.studentMarks = 0;
+    this.modelForm.studentActiveBacklogs = 0;
   }
 
   UpdateRecords() {
     let bodyData = {
       studentId: this.currentStudentID,
-      studentFirstName: this.studentFirstName,
-      studentMiddleName: this.studentMiddleName,
-      studentLastName: this.studentLastName,
-      studentDob: this.studentDob,
-      studentGender: this.studentGender,
-      studentReligion: this.selectedReligion == "Select Religion" ? "" : this.selectedReligion,
-      studentDisability: this.studentDisability,
-      studentMobno: this.studentMobno,
-      studentEmail: this.studentEmail,
-      studentCountry: this.selectedCountry == "Select Country"? "" : this.selectedCountry,
-      studentState: this.selectedState == "Select State" ? "" : this.selectedState,
-      studentCity: this.selectedCity == "Select City" ? "" : this.selectedCity,
-      studentPinCode: this.studentPinCode,
-      studentAddress: this.studentAddress,
-      studentCollegeName: this.studentCollegeName,
-      studentDegree: this.studentDegree,
-      studentSpecialization: this.studentSpecialization,
-      studentMarks: this.studentMarks,
-      studentActiveBacklogs: this.studentActiveBacklogs,
+      studentFirstName: this.modelForm.studentFirstName,
+      studentMiddleName: this.modelForm.studentMiddleName,
+      studentLastName: this.modelForm.studentLastName,
+      studentDob: this.modelForm.studentDob,
+      studentGender: this.modelForm.studentGender,
+      studentReligion: this.modelForm.studentReligion == "Select Religion" ? "" : this.modelForm.studentReligion,
+      studentDisability: this.modelForm.studentDisability,
+      studentMobno: this.modelForm.studentMobno,
+      studentEmail: this.modelForm.studentEmail,
+      studentCountry: this.modelForm.studentCountry == "Select Country" ? "" : this.modelForm.studentCountry,
+      studentState: this.modelForm.studentState == "Select State" ? "" : this.modelForm.studentState,
+      studentCity: this.modelForm.studentCity == "Select City" ? "" : this.modelForm.studentCity,
+      studentPinCode: this.modelForm.studentPincode,
+      studentAddress: this.modelForm.studentAddress,
+      studentCollegeName: this.modelForm.studentCollegeName,
+      studentDegree: this.modelForm.studentDegree,
+      studentSpecialization: this.modelForm.studentSpecialization,
+      studentMarks: this.modelForm.studentMarks,
+      studentActiveBacklogs: this.modelForm.studentActiveBacklogs,
     };
     console.log(this.studentId);
     this.http
@@ -232,6 +199,7 @@ export class StudentcrudComponent {
         alert('Student Info Updated');
         this.currentStudentID = 0;
         this.clearForm();
+        this.ngOnInit();
         this.getAllStudent();
       });
   }
@@ -262,15 +230,4 @@ export class StudentcrudComponent {
       this.setDelete(this.StudentArray[student]);
     }
   }
-
-  // changeFormSubmission(state: any){
-  //   if (state == false){
-  //     state = true;
-  //     this.model.formSubmission = true;
-  //   }
-  //   else{
-  //     state = false;
-  //     this.model.formSubmission = true;
-  //   }
-  // }
 }
